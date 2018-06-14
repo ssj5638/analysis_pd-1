@@ -41,4 +41,26 @@ def pd_fetch_tourspot_visitor(
         tourspot='',
         year=0,
         month=0):
-    pass
+
+    pageno = 1
+    hasnext = True
+
+    while hasnext:
+        url = pd_gen_url(...... , numOfRows=50, pageNo=pageno)
+        json_result = json_request(url=url)
+
+
+        json_body = json_response.get('body')
+        numofrows = json_body.get('numOfRows')
+        totalcount = json_body.get('totalCount')
+
+        if totalcount == 0:
+            break
+
+        last_page = math.ceil(totalcount/numofrows)
+        if pageno == last_page:
+            hasnext = False
+        else:
+            pageno += 1
+
+            
