@@ -63,4 +63,3 @@ def pd_fetch_tourspot_visitor(
         else:
             pageno += 1
 
-            
