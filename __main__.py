@@ -8,11 +8,8 @@ if __name__ == '__main__':
         start_year=2017,
         end_year=2017)
 
-
-    '''
     for country in [('중국', 112), ('일본', 130), ('미국', 275)]:
             collect.crawling_foreign_visitor(country, 2017, 2017)
-    '''
 
     #analysis
 
