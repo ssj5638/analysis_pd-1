@@ -17,9 +17,14 @@ if __name__ == '__main__':
         rf = collect.crawling_foreign_visitor(country, **CONFIG['common'])
         resultfiles['foreign_visitor'].append(rf)
 
-    #analysis
-    result_analysis = analyze.analysis_correlation(resultfiles)
-    print(result_analysis)
-    #visualize
-    visualize.graph_scatter(result_analysis)
+    # # 1. analysis and visualize
+    # result_analysis = analyze.analysis_correlation(resultfiles)
+    # print(result_analysis)
+    #
+    # # 2. analysis and visualize
+    # visualize.graph_scatter(result_analysis)
 
+
+    result_analysis = analyze.analysis_correlation_by_tourspot(resultfiles)      # 장소별로 상관계수 구하기기
+
+    visualize.graph_scatter_2(result_analysis)
