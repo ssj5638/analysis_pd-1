@@ -1,5 +1,6 @@
 import collect
 import analyze
+import visualize
 from config import CONFIG
 
 if __name__ == '__main__':
@@ -17,6 +18,8 @@ if __name__ == '__main__':
         resultfiles['foreign_visitor'].append(rf)
 
     #analysis
-    analyze.analysis_correlation(resultfiles)
-
+    result_analysis = analyze.analysis_correlation(resultfiles)
+    print(result_analysis)
     #visualize
+    visualize.graph_scatter(result_analysis)
+
