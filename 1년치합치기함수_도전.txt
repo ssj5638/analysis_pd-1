@@ -1,0 +1,21 @@
+'''
+def analysis_correlation_by_tourspot(resultfiles):
+    with open(resultfiles['tourspot_visitor'], 'r', encoding='utf-8') as infile:
+        json_data = json.loads(infile.read())
+    tourspot_table = pd.DataFrame(json_data, columns=['count_foreigner', 'date', 'tourist_spot'])
+    tourist_spot=tourspot_table['tourist_spot'].unique()
+    results = []
+    for tourspot in tourist_spot:
+        temp_table = tourspot_table[tourspot_table['tourist_spot'] == tourspot]
+        temp_table = temp_table.set_index('date')
+        temp_tourspotvisitor_table = pd.DataFrame(tourspot_table.groupby('tourist_spot')['count_foreigner'].sum())
+        print(temp_tourspotvisitor_table)
+        r = []
+        for index, filename in enumerate(resultfiles['foreign_visitor']):
+            with open(filename, 'r', encoding='utf-8') as infile:
+                json_data = json.loads(infile.read())
+            foreignvisitor_table = pd.DataFrame(json_data, columns=['country_name', 'date', 'visit_count'])
+            foreignvisitor_table = foreignvisitor_table.set_index('date')
+            temp_foreignvisitor_table = pd.DataFrame(foreignvisitor_table.groupby('country_name')['visit_count'].sum())
+            print(temp_foreignvisitor_table)
+'''

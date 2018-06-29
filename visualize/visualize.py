@@ -18,7 +18,7 @@ def graph_scatter(result_analysis):
 def graph_scatter_2(result_analysis):
     print(result_analysis)
 
-    graph_table = pd.DataFrame(result_analysis)
+    graph_table = pd.DataFrame(result_analysis, columns=['tourist_spot', 'r_중국', 'r_일본', 'r_미국'])
     graph_table = graph_table.set_index('tourist_spot')
 
     graph_table.plot(kind='bar')

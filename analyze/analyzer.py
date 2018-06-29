@@ -24,8 +24,8 @@ def analysis_correlation(resultfiles):
 
         merge_table = pd.merge(temp_tourspotvisitor_table, foreignvisitor_table, left_index=True, right_index=True)
         print(merge_table)
-        x = list(merge_table['visit_count'])
-        y = list(merge_table['count_foreigner'])
+        y = list(merge_table['visit_count'])
+        x = list(merge_table['count_foreigner'])
 
         country_name = foreignvisitor_table['country_name'].unique().item(0)    # 중국/일본/미국
         r = ss.pearsonr(x, y)[0] # scipy라이브러리 상관계수  => r = np.corrcoe(x, y)[0] numpy 라이브러리
@@ -36,15 +36,14 @@ def analysis_correlation(resultfiles):
 
     return results
 
-
 def analysis_correlation_by_tourspot(resultfiles):
     with open(resultfiles['tourspot_visitor'],'r',encoding='utf-8') as infile:
         json_data = json.loads(infile.read())
         # print(json_data)
-        tourspot_table = pd.DataFrame(json_data, columns=['count_foreigner', 'date', 'tourist_spot'])
-        # print(tourspot_table)
-        tourist_spot = tourspot_table['tourist_spot'].unique()
-        print(tourist_spot)
+    tourspot_table = pd.DataFrame(json_data, columns=['count_foreigner', 'date', 'tourist_spot'])
+    # print(tourspot_table)
+    tourist_spot = tourspot_table['tourist_spot'].unique()
+    print(tourist_spot)
     results = []
     for tourspot in tourist_spot:
         temp_table = tourspot_table[tourspot_table['tourist_spot'] == tourspot]
@@ -64,16 +63,15 @@ def analysis_correlation_by_tourspot(resultfiles):
             merge_table = pd.merge(temp_table, foreignvisitor_table, left_index=True, right_index=True)
             # print(merge_table)
 
-            x = list(merge_table['visit_count'])
-            y = list(merge_table['count_foreigner'])
+            y = list(merge_table['visit_count'])
+            x = list(merge_table['count_foreigner'])
 
             tourist_spot = temp_table['tourist_spot'].unique().item(0)  # 관광지별
+            print(tourist_spot)
+            print(temp_table['tourist_spot'])
             r.append(analysis_correlation_by_torspot(x,y))
-        results.append({'tourist_spot': tourist_spot, 'r_중국': r[0], 'r_일본': r[1], 'r_미국': r[2]})
-    #     graph_table = pd.DataFrame(results)
-    #     graph_table = graph_table.set_index('tourist_spot')
-    # graph_table.plot(kind='bar')
-    # plt.show()
+        results.append({'tourspot': tourist_spot, 'r_중국': r[0], 'r_일본': r[1], 'r_미국': r[2]})
+
     return results
 
 
@@ -101,13 +99,3 @@ def analysis_correlation_by_torspot(x,y):
         r = 0.0
 
     return r
-
-
-def graph_scatter_2(result_analysis):
-    for result in result_analysis:
-        print(result)
-        graph_table = pd.DataFrame(result, colums=['tourist_spot', 'r_중국', 'r_일본', 'r_미국'], on = ['tourist_spot'])
-        graph_table = graph_table.set_index('tourist_spot')
-
-    graph_table.plot(kind='bar')
-    plt.show()
